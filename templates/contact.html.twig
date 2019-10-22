@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	<title>{{ title }}</title>
+{% endblock %}
+{% block body %}
+<div class="site">
+  <div class="grid">
+    <div class="header">About Me</div>
+    <div class="header"></div>
+    <div class="header">Contact Me</div>
+
+    <div class="aboutMe flex column center">
+      <p>
+          Hello, I'm Betsy Stevens, a full stack developer in the 
+          Chicago area. I use this website to store working examples 
+          of code I've written. With so much coding, I sometimes forget
+          all I have done.
+      </p>
+      <p>
+          This site is built on Slim, a lightweight PHP micro framework. 
+          I develope and test using a MacBook Pro with a 13-inch screen. 
+          I use Visual Studio Code to develope, having recently switched
+          from Sublime Text. I test my code using Chrome and FireFox 
+          Developer Edition.
+      </p>
+      <p>
+          Code for this site and for most of the demos can be found on my 
+          github account
+          <a href="https://github.com/gattara">github.com/gattara</a>
+      </p>
+    </div>
+
+    <div>
+      <img src="/images/treeDrawing204x316.jpg" alt="">
+    </div>
+
+    <div class="contact">
+      <form action="/contact/submit" method="post">
+        <label for="name">Name</label>
+        <input 
+          id="name"
+          name="name"
+          type="text"
+          maxlength="40"
+          required >
+        <label>Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          maxlength="60"
+          required>
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+  </div>
+</div>  
+{% endblock %}

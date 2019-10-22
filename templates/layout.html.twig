@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  <title>{{ data['title'] }}</title>
+{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="/css/style.css" />
+{% endblock %}
+
+{% block body %}
+<main class="flex column center">
+
+  <h1>JavaScript</h1>
+
+  <div class="container demos">
+    {% for demo in data['demos'] %}
+      <div id="{{ demo['cardID'] }}" class="demo-card flex column top">
+      
+        <a href="{{ demo['cardRoute'] }}" class="card-top" title="{{ demo['cardTitle'] }}">
+          <div class="card-top flex column center">
+            {{ demo['cardTitle'] }}
+          </div>
+        </a>
+        <div class="card-content flex column center">
+          <p class="summary">{{ demo['cardSummary'] }}</p>  
+        </div>
+        <div class="card-footer">
+          <p class="tech">
+            {% for tech in demo['tech'] %}
+              {{ tech }}<br>
+            {% endfor %}
+          </p>
+        </div>
+      </div>
+    {% endfor %}  
+  </div>
+
+</main>
+
+<footer>
+</footer>
+{% endblock %}    

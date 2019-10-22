@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	<title>{{ title }}</title>
+{% endblock %}
+{% block body %}
+<section class="keyCode">
+	<div class="keyCode flex column center">
+		<div id="code">65</div>
+		<button type="button">a</button>
+	</div>
+</section>
+{% endblock %}
+{% block javascripts %}
+	<script type="text/javascript">
+		function getKeyCode(e) {
+			key.innerHTML = e.key;
+			code.innerHTML = e.keyCode;
+		}
+  	const key = document.querySelector('button');
+  	const code = document.querySelector('#code')
+		document.addEventListener('keydown', getKeyCode);
+	</script>
+{% endblock %}

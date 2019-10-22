@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      {% block title %}<title>Welcome!</title>{% endblock %}
+      <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+      {% block stylesheets %}
+          <link rel="stylesheet" href="/css/style.css" />
+      {% endblock %}
+      <link rel="icon" type="image/x-icon" href="/myIcons/moonSpiral.png" />
+    </head>
+    <body>
+      {% block nav %}
+        <nav class="top flex row center">
+          <ul class="flex row center">
+            <li><a href="/contact" title="about">ABOUT</a></li>
+            <li><a href="/demo" class="home" title="home"></a></li>
+            <li><a href="/contact" title="contact">CONTACT</a></li>
+          </ul>
+        </nav>
+      {% endblock %}
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
