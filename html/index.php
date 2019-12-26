@@ -1,8 +1,11 @@
 <?php 
 
 /*
- *  developement and testing 
- *  setup to run ~/slim3/html/index.php
+ *  developement and testing setup
+ *    to run ~/slim3/html/index.php
+ * 
+ *  .htaccess rewrite conditions are in 
+ *   /etc/apache2/httpd.conf
  * 
  *  in cli
  *   ~/slim3/html $ php -S localhost:8080
@@ -58,14 +61,24 @@ $container['DemosController'] = function ($c) {
         $c->view
     );
 };
+$container['TestController'] = function ($c) {
+    return new \App\Controllers\TestController(
+        $c->logger,
+        $c->view
+    );
+};
 
 // Routes
 
-// for testing stuff
-$app->get('/test', 'TestController:helloTest' );
+// a route for testing stuff
+$app->get('/test/{demo}', 'TestController:test');
 
 // demo home page - show demo cards
+$app->get('/', 'HomeController:list');
 $app->get('/demo', 'HomeController:list');
+
+// display demo 
+$app->get('/demo/{whichDemo}', 'DemosController:getDemo' );
 
 // contact and about page
 $app->get('/contact', 'HomeController:contact');
@@ -76,16 +89,4 @@ $app->post ('/contact/submit', 'HomeController:contactSubmit');
 // thank you for submitting contact
 $app->get ('/thankYou', 'HomeController:thankYou');
 
-// panels enlarged on mouse clicks
-$app->get('/demo/panels', 'DemosController:panels' );
-
-// vanGogh thumbnails and enlarged images
-$app->get('/demo/vanGogh', 'DemosController:vanGogh' );
-
-// tiles that spinout
-$app->get('/demo/tiles', 'DemosController:tiles');
-    
-// keyCode - keyboard codes are displayed
-$app->get('/demo/keyCode', 'DemosController:keyCode');
-    
 $app->run();
