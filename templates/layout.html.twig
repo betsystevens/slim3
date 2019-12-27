@@ -14,7 +14,7 @@
   <h1>JavaScript</h1>
 
   <div class="container demos">
-    {% for demo in data['demos'] %}
+    {% for demo in data %}
       <div id="{{ demo['cardID'] }}" class="demo-card flex column top">
       
         <a href="{{ demo['cardRoute'] }}" class="card-top" title="{{ demo['cardTitle'] }}">
