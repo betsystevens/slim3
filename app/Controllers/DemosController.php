@@ -8,64 +8,38 @@ class DemosController {
 
   protected $logger;
   protected $view;
+  protected $data;
 
   public function __construct(Logger $logger, View $view)
   {
     $this->logger = $logger;
     $this->view = $view;
+    $this->data = $this->loadData();
   }
 
-  public function panels($request, $response)
-  {
-    $this->logger->addInfo("Demos panels");
-    $response = $this->view->render
-        (
-            $response, 
-            'panels.html.twig', 
-            [
-                'title' => 'Flex Panels'
-            ]
-        );
-    return $response;
+  private function loadData() {
+    $demoDataFile = fopen("../data/demoCard.json", "r") or die("Unable to open file");
+    $demoData = fread($demoDataFile, filesize("../data/demoCard.json"));
+    fclose($demoDataFile);
+    $data = json_decode($demoData, true);
+    return $data;
   }
 
-  public function vanGogh($request, $response)
+  public function getDemo($request, $response, $args)
   {
-    $this->logger->addInfo("demo vanGogh");
+    $this->logger->addInfo("Demos cards");
+    $whichDemo = $args['whichDemo'];
+    $title = $this->data[$whichDemo]['title'];
+     
     $response = $this->view->render
         (
             $response, 
-            'vanGogh.html.twig', 
+            $this->data[$whichDemo]['cardTemplate'],
             [
-                "title" => "Van Gogh"
+                'title' => $title
             ]
         );
+    // die("here");
     return $response;
-  }
-  public function tiles($request, $response)
-  {
-    $this->logger->addInfo("demo tiles");
-    $response = $this->view->render
-        (
-            $response, 
-            "tiles.html.twig", 
-            [
-                "title" => "Tiles"
-            ]
-        );
-    return $response;
-  }
-  public function keyCode($request, $response)
-  {
-    $this->logger->addInfo("demo keyCode");
-    $response = $this->view->render
-        (
-            $response, 
-            "keyCode.html.twig", 
-            [
-                "title" => "Key Codes"
-            ]
-        );
-    return $response;
-  }
+ } 
 }
