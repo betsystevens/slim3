@@ -1,13 +1,13 @@
 <?php 
 
-/*
+/** 
  *  developement and testing setup
  *    to run ~/slim3/html/index.php
  * 
  *  .htaccess rewrite conditions are in 
  *   /etc/apache2/httpd.conf
  * 
- *  in cli
+ *  from command line: 
  *   ~/slim3/html $ php -S localhost:8080
  * 
  *  in browser
@@ -20,18 +20,25 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-// file to manage dependencies
+/**
+ * file to manage dependencies
+ */
 require '../vendor/autoload.php';
 
-// use this in developer mode for error messages
+/**
+ * use this in developer mode for error messages
+ */
 $config['displayErrorDetails'] = true;
 
-// it all starts here with Slim's App object
+/**
+ * It all starts here with Slim's App object
+ */
 $app = new \Slim\App(['settings' => $config]);
-
 $container = $app->getContainer();
 
-// using Monolog's logger for php applications
+/**
+ * using Monolog's logger for php applications
+ */
 $container['logger'] = function($c) {
     $logger = new \Monolog\Logger('demoApp');
     $file_handler = new \Monolog\Handler\StreamHandler("../logs/app.log");
@@ -39,7 +46,9 @@ $container['logger'] = function($c) {
     return $logger;
 };
 
-// load Twig for views
+/**
+ * load Twig for views
+ */
 $container['view'] = function ($c) {
     $view = new \Slim\Views\Twig('../templates', [
         'debug' => true,
@@ -48,7 +57,9 @@ $container['view'] = function ($c) {
     return $view;
 };
 
-// load controllers
+/**
+ * load controllers
+ */
 $container['HomeController'] = function ($c) {
     return new \App\Controllers\HomeController (
         $c->logger,
@@ -68,25 +79,39 @@ $container['TestController'] = function ($c) {
     );
 };
 
-// Routes
+/**
+ *  Routes
+ */
 
-// a route for testing stuff
+ /**
+  * route for testing stuff
+  */
 $app->get('/test/{demo}', 'TestController:test');
 
-// demo home page - show demo cards
+/**
+ * demo home page - show demo cards
+ */
 $app->get('/', 'HomeController:list');
 $app->get('/demo', 'HomeController:list');
 
-// display demo 
+/**
+ * display  a demo that was selected from demo home page
+ */
 $app->get('/demo/{whichDemo}', 'DemosController:getDemo' );
 
-// contact and about page
+/**
+ *  contact and about page
+ */
 $app->get('/contact', 'HomeController:contact');
 
-// contact form submitted    
+/**
+ * contact form submitted    
+ */
 $app->post ('/contact/submit', 'HomeController:contactSubmit');
-  
-// thank you for submitting contact
+ 
+/**
+ *  thank you for submitting contact
+ */
 $app->get ('/thankYou', 'HomeController:thankYou');
 
 $app->run();
