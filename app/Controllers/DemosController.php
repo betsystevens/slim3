@@ -6,8 +6,21 @@ use Slim\Views\Twig as View;
 
 class DemosController {
 
+  /**
+   * Monolog logger
+   */
   protected $logger;
+
+  /**
+   * Twig for viewing
+   */
   protected $view;
+
+  /**
+   * Data file containing information about each demo 
+   * Contains demo title, template file name, routes, 
+   *  content text, etc. for each demo
+   */
   protected $data;
 
   public function __construct(Logger $logger, View $view)
@@ -17,6 +30,9 @@ class DemosController {
     $this->data = $this->loadData();
   }
 
+  /**
+   *  Read the demos data file
+   */
   private function loadData() {
     $demoDataFile = fopen("../data/demoCard.json", "r") or die("Unable to open file");
     $demoData = fread($demoDataFile, filesize("../data/demoCard.json"));
@@ -25,6 +41,16 @@ class DemosController {
     return $data;
   }
 
+  /**
+   * Get data and view for selected demo 
+   * Return in response
+   * 
+   * @param object    $request    request object for current HTTP request 
+   * @param object    $response   current HTTP response to be returned to client
+   * @param array     $args       contains which demo to display
+   * 
+   * @return object   $response   current HTTP response
+   */
   public function getDemo($request, $response, $args)
   {
     $this->logger->addInfo("Demos cards");
@@ -39,7 +65,6 @@ class DemosController {
                 'title' => $title
             ]
         );
-    // die("here");
     return $response;
  } 
 }
