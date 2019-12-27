@@ -8,6 +8,7 @@ class HomeController {
 
     protected $logger;
     protected $view;
+    protected $data;
 
     public function __construct(Logger $logger, View $view)
     {
@@ -19,8 +20,8 @@ class HomeController {
     {
         $this->logger->addInfo("HomeController list");
 
-        $myfile = fopen("../data/card.json", "r") or die("Unable to open file!");
-        $arr =  fread($myfile,filesize("../data/card.json"));
+        $myfile = fopen("../data/demoCard.json", "r") or die("Unable to open file!");
+        $arr =  fread($myfile,filesize("../data/demoCard.json"));
         fclose($myfile);
         $data = json_decode($arr, true);
         $response = $this->view->render
