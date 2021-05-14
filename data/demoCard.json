@@ -47,7 +47,7 @@
           "attributes are added or removed"
       ]      
     },
-  "keyCodes" : 
+  "keyCode" : 
     {
       "title" : "KeyCodes",
       "cardID" : "keycodes",

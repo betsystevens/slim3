@@ -1,12 +1,18 @@
 <?php 
 
 /** 
+ * 
  *  developement and testing setup
  *    to run ~/slim3/html/index.php
  * 
  *  .htaccess rewrite conditions are in 
  *   /etc/apache2/httpd.conf
+ *  to run from localhost, in browser
+ *   localhost/slim3/html
+ *   localhost/slim3/html/
+ *   localhost/slim3/html/demo/panels
  * 
+ *  to use php builtin server
  *  from command line: 
  *   ~/slim3/html $ php -S localhost:8080
  * 
@@ -50,9 +56,12 @@ $container['logger'] = function($c) {
  * load Twig for views
  */
 $container['view'] = function ($c) {
-    $view = new \Slim\Views\Twig('../templates', [
+    // $view = new \Slim\Views\Twig('../templates', [
+    $view = new \Slim\Views\Twig('templates', [
         'debug' => true,
-        'cache' => '../cache'
+        // 3/2020 error when writing cache directory
+        // try to fix, later....
+        // 'cache' => '../cache'
     ]);
     return $view;
 };
@@ -79,6 +88,7 @@ $container['TestController'] = function ($c) {
     );
 };
 
+
 /**
  *  Routes
  */
@@ -86,12 +96,13 @@ $container['TestController'] = function ($c) {
  /**
   * route for testing stuff
   */
-$app->get('/test/{demo}', 'TestController:test');
+// $app->get('/test/{demo}', 'TestController:test');
 
 /**
  * demo home page - show demo cards
  */
 $app->get('/', 'HomeController:list');
+// $app->get('/demo/', 'HomeController:list');
 $app->get('/demo', 'HomeController:list');
 
 /**

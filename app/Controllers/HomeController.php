@@ -36,7 +36,8 @@ class HomeController {
     public function contact($request, $response)
     {
         $this->logger->addInfo("contact");
-        $response = $this->view->render (
+        $response = $this->view->render 
+        (
             $response,
             "contact.html.twig",
             [

@@ -55,8 +55,12 @@ class DemosController {
   {
     $this->logger->addInfo("Demos cards");
     $whichDemo = $args['whichDemo'];
+    $this->logger->addInfo($whichDemo);
     $title = $this->data[$whichDemo]['title'];
-     
+
+    $route = $request->getAttribute('route'); 
+    $name = $route->getName();
+
     $response = $this->view->render
         (
             $response, 
